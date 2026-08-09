@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset = "UTF-8">
-<title> Student Hub </title>
-<link rel="stylesheet" href="css/style.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Hub - News</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
 <body>
-    <header><h1>Student Hub</h1><p>Learn • Connect • Share • Grow</p></header>
 
-    <nav>
-        <ul id="navLinks">
+<header>
+    <h1>Student Hub</h1>
+    <p>Learn • Connect • Share • Grow</p>
+</header>
+
+<nav>
+       <ul id="navLinks">
 
             <li><a href="studenthub.html">Home</a></li>
             <li><a href="about.html">About</a></li>
@@ -27,15 +33,29 @@
 
         </ul>
     </nav>
-    <h2>Welcome to Student Hub</h2>
 
-    <p>
-    Student Hub is your one-stop platform for discussions, events, and student collaboration.
-    </p>
+<section class="hero">
 
-    <button>Get Started</button>
-    <a href="studenthub.html"> Go Back to Home</a>
-    <footer>
+<h2>Latest College News</h2>
+
+<div class="card">
+    <h3>AI Workshop</h3>
+    <p>Join the AI Workshop on 20th August 2026.</p>
+</div>
+
+<div class="card">
+    <h3>Placement Drive</h3>
+    <p>Top companies are visiting the campus next month.</p>
+</div>
+
+<div class="card">
+    <h3> Sports Fest</h3>
+    <p>Register now for the annual sports festival.</p>
+</div>
+
+</section>
+
+<footer>
     <p>© 2026 Student Hub | Developed by Nihal</p>
 
     <p>
@@ -44,11 +64,14 @@
         <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
     </p>
 </footer>
-    
+
+<button id="topBtn" onclick="topFunction()">⬆ Top</button>
+
     <script src="js/script.js"></script>
 
     <script>
         updateNavigation();
     </script>
+
 </body>
 </html>

@@ -11,11 +11,14 @@
     <header>
         <h1>Student Hub</h1>
         <p>Learn • Connect • Share • Grow</p>
+
+        <button onclick="toggleTheme()"> Dark Mode</button>
     </header>
 
-     <nav>
-        <ul>
-             <li><a href="index.html">Home</a></li>
+    <nav>
+       <ul id="navLinks">
+
+            <li><a href="studenthub.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="discussion.html">Discussion</a></li>
             <li><a href="gallery.html">Gallery</a></li>
@@ -28,49 +31,84 @@
             <li><a href="admin.html">Admin</a></li>
             <li><a href="feedback.html">Feedback</a></li>
             <li><a href="faq.html">FAQ</a></li>
+            <li><a href="news.html">News</a></li>
+
         </ul>
-        </nav>
+     
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search...">
+            <button onclick="searchPages()">Search</button>
+        </div>
+        
+
+    </nav>
 
     <section class="hero">
-        <img src="campus1.webp" alt="Campus">
+
         <h2>Welcome to Student Hub</h2>
-        <p>Your one-stop platform for students.</p>
-        <button>Explore Now</button>
 
-        <section class="cards">
+        <p>
+            Your one-stop platform for connecting, learning,
+            exploring events, and staying updated with university life.
+        </p>
 
-    <div class="card">
-        <h3>Discussion</h3>
-        <p>Ask questions and share knowledge.</p>
-        <a href="discussion.html"><button>Open</button></a>
-    </div>
+        <img src="images/campus1.webp" alt="CHARUSAT Campus">
 
-    <div class="card">
-        <h3>Events</h3>
-        <p>View upcoming college events.</p>
-        <a href="events.html"><button>View</button></a>
-    </div>
+    </section>
 
-    <div class="card">
-        <h3>Profile</h3>
-        <p>Manage your student profile.</p>
-        <a href="profile.html"><button>Profile</button></a>
-    </div>
+    <section class="cards">
 
-</section>
+        <div class="card">
+            <h3> Discussion</h3>
+            <p>Ask questions, share knowledge, and connect with other students.</p>
+            <a href="discussion.html">
+                <button>Open Discussion</button>
+            </a>
+        </div>
 
-    
+        <div class="card">
+            <h3> Events</h3>
+            <p>Discover upcoming college events, activities, and programs.</p>
+            <a href="events.html">
+                <button>View Events</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3> Profile</h3>
+            <p>View and manage your student profile information.</p>
+            <a href="profile.html">
+                <button>View Profile</button>
+            </a>
+        </div>
+
+        <div class="card">
+            <h3> Gallery</h3>
+            <p>Explore campus photos, events, and university facilities.</p>
+            <a href="gallery.html">
+                <button>View Gallery</button>
+            </a>
+        </div>
+
+    </section>
+    <section style="height:1200px;">
+    </section>  
+
     <footer>
-
         <p>© 2026 Student Hub | Developed by Nihal</p>
 
         <p>
-        <a href="#">Facebook</a> |
-        <a href="#">Instagram</a> |
-        <a href="#">LinkedIn</a>
+            <a href="https://www.facebook.com/" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/" target="_blank">Instagram</a> |
+            <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
         </p>
-
     </footer>
+    <button id="topBtn" onclick="topFunction()">Top</button>
 
+    <script src="js/script.js"></script>
+
+    <script>
+        updateNavigation();
+    </script>
 </body>
 </html>

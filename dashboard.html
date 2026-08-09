@@ -2,17 +2,137 @@
 <html lang="en">
 <meta charset = "UTF-8">
 <title> Student Hub </title>
+<link rel="stylesheet" href="css/style.css">
+
 <body>
-    <h2>Dashboard</h2>
+    <header><h1>Student Hub</h1><p>Learn • Connect • Share • Grow</p></header>
 
-    <ul>
-        <li>Total Discussions: 15</li>
-        <li>Upcoming Events: 4</li>
-        <li>Registered Users: 120</li>
-        <li>New Notifications: 3</li>
-    </ul>
-    <a href="studenthub.html"> Go Back to Home</a>
-     
+    <nav>
+        <ul id="navLinks">
 
+            <li><a href="studenthub.html">Home</a></li>
+
+            <li><a href="about.html">About</a></li>
+
+            <li><a href="discussion.html">Discussion</a></li>
+
+            <li><a href="register.html">Register</a></li>
+
+            <li><a href="login.html">Login</a></li>
+
+            <li><a href="dashboard.html">Dashboard</a></li>
+
+            <li><a href="events.html">Events</a></li>
+
+            <li><a href="profile.html">Profile</a></li>
+
+            <li><a href="contact.html">Contact</a></li>
+
+            <li><a href="admin.html">Admin</a></li>
+
+            <li><a href="feedback.html">Feedback</a></li>
+
+            <li><a href="faq.html">FAQ</a></li>
+
+        </ul>
+    </nav>
+
+    <section class="dashboard">
+
+        <h2>Student Dashboard</h2>
+
+        <p id="welcomeMessage">Welcome to your Student Hub dashboard!</p>
+
+
+
+        <div class="dashboard-stats">
+
+            <div class="stat">
+                <h3>15</h3>
+                <p>Total Discussions</p>
+            </div>
+
+            <div class="stat">
+                <h3>4</h3>
+                <p>Upcoming Events</p>
+            </div>
+
+            <div class="stat">
+                <h3>120</h3>
+                <p>Registered Users</p>
+            </div>
+
+            <div class="stat">
+                <h3>3</h3>
+                <p>New Notifications</p>
+            </div>
+
+        </div>
+
+
+        
+
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card">
+                <h3> Profile</h3>
+                <p>Manage your student information.</p>
+                <a href="profile.html">
+                    <button>View Profile</button>
+                </a>
+            </div>
+
+            <div class="dashboard-card">
+                <h3> Events</h3>
+                <p>Check upcoming university events.</p>
+                <a href="events.html">
+                    <button>View Events</button>
+                </a>
+            </div>
+
+            <div class="dashboard-card">
+                <h3> Discussions</h3>
+                <p>Join discussions with other students.</p>
+                <a href="discussion.html">
+                    <button>Open Discussions</button>
+                </a>
+            </div>
+
+            <div class="dashboard-card">
+                <h3> News</h3>
+                <p>Stay updated with university news.</p>
+                <a href="news.html">
+                    <button>Read News</button>
+                </a>
+            </div>
+
+        </div>
+
+
+
+        <div class="back-home">
+            <a href="index.html">Go Back to Home</a>
+        </div>
+
+    </section>
+
+
+    <footer>
+        <p>© 2026 Student Hub | Developed by Nihal</p>
+
+        <p>
+            <a href="https://www.facebook.com/" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/" target="_blank">Instagram</a> |
+            <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        </p>
+    </footer>
+        
+    <script src="js/script.js"></script>
+
+    <script>
+        checkLogin();
+        displayUserName();
+        updateNavigation();
+    </script>
 </body>
 </html>
