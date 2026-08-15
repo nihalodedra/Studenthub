@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset = "UTF-8">
+<title> Student Hub </title>
+<link rel="stylesheet" href="css/style.css">
+
+<body>
+    <header>
+        <h1>Student Hub</h1>
+        <p>Learn • Connect • Share • Grow</p></header>
+
+    <nav>
+        <ul id="navLinks">
+
+            <li><a href="studenthub.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="discussion.html">Discussion</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="register.html">Register</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="admin.html">Admin</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="news.html">News</a></li>
+
+        </ul>
+    </nav>
+   <section class="admin-dashboard">
+
+        <h2>Admin Dashboard </h2>
+
+        <p id="adminWelcome">Welcome, Admin!</p>
+
+        <div class="admin-stats">
+
+        <div class="admin-card">
+            <h3> Users</h3>
+            <p id="totalUsers">0</p>
+        </div>
+
+            <div class="admin-card">
+                <h3> Events</h3>
+                <p>4</p>
+            </div>
+
+            <div class="admin-card">
+                <h3> Discussions</h3>
+                <p>15</p>
+            </div>
+
+            <div class="admin-card">
+                <h3> Notifications</h3>
+                <p>3</p>
+            </div>
+
+        </div>
+
+        <div class="admin-actions">
+
+            <div class="admin-action-card">
+                <h3> Manage Users</h3>
+                <p>View and manage registered students.</p>
+                <button onclick="manageUsers()">Manage Users</button>
+            </div>
+
+            <div class="admin-action-card">
+                <h3> Manage Events</h3>
+                <p>Create and manage university events.</p>
+                <button onclick="manageEvents()">Manage Events</button>
+            </div>
+
+            <div class="admin-action-card">
+                <h3> Manage Discussions</h3>
+                <p>Monitor student discussions.</p>
+                <button onclick="manageDiscussions()">Manage Discussions</button>
+            </div>
+
+            <div class="admin-action-card">
+                <h3> Review Feedback</h3>
+                <p>Check feedback submitted by students.</p>
+                <button onclick="reviewFeedback()">Review Feedback</button>
+            </div>
+
+        </div>
+
+        <div class="user-management" id="userManagement">
+
+            <h2> User Management</h2>
+
+            <table class="user-table">
+
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td id="adminUserName">-</td>
+                        <td id="adminUserEmail">-</td>
+                        <td id="adminUserRole">-</td>
+                        <td>Active</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="back-home">
+            <a href="studenthub.html"> Go Back to Home</a>
+        </div>
+
+    </section>
+    <footer>
+        <p>© 2026 Student Hub | Developed by Nihal</p>
+
+        <p>
+            <a href="https://www.facebook.com/" target="_blank">Facebook</a> |
+            <a href="https://www.instagram.com/" target="_blank">Instagram</a> |
+            <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+        </p>
+    </footer>
+        
+    <script src="js/script.js"></script>
+
+    <script>
+        updateNavigation();
+        checkAdmin();
+        displayUserCount();
+        displayAdminName();
+    </script>
+</body>
+</html>

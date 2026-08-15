@@ -1,32 +1,176 @@
 alert("Welcome to Student Hub!");
 
+
+// =========================
+// DARK MODE
+// =========================
+
 function toggleTheme() {
     document.body.classList.toggle("dark");
 }
-function validateLogin() {
 
-    let email = document.getElementById("loginEmail").value.trim();
-    let password = document.getElementById("loginPassword").value;
 
-    // Get registered user
-    let storedUser = localStorage.getItem("studentUser");
+// =========================
+// REGISTER
+// =========================
 
-    if (storedUser === null) {
-        alert("No registered user found. Please register first.");
+function validateRegister() {
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let mobile = document.getElementById("mobile").value;
+    let password = document.getElementById("password").value;
+    let confirm = document.getElementById("confirm").value;
+    let course = document.getElementById("course").value;
+    let year = document.getElementById("year").value;
+
+
+    // Name
+    if (name == "") {
+        alert("Please enter your name");
         return false;
     }
 
-    // Convert stored data into object
-    let user = JSON.parse(storedUser);
 
-    // Check email and password
-    if (email === user.email && password === user.password) {
+    // Email
+    if (email == "") {
+        alert("Please enter your email");
+        return false;
+    }
 
-        // Save login status
-        localStorage.setItem("isLoggedIn", "true");
+    if (!email.includes("@")) {
+        alert("Enter a valid email");
+        return false;
+    }
 
-        // Save the currently logged-in user
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+    // Mobile
+    if (!/^[0-9]{10}$/.test(mobile)) {
+        alert("Enter a valid 10 digit mobile number");
+        return false;
+    }
+
+
+    // Password
+    if (password == "") {
+        alert("Please enter password");
+        return false;
+    }
+
+    if (password.length < 8) {
+        alert("Password must be at least 8 characters");
+        return false;
+    }
+
+
+    // Confirm password
+    if (confirm == "") {
+        alert("Please confirm your password");
+        return false;
+    }
+
+    if (password != confirm) {
+        alert("Passwords do not match");
+        return false;
+    }
+
+
+    // Course
+    if (course == "") {
+        alert("Please select course");
+        return false;
+    }
+
+
+    // Year
+    if (year == "") {
+        alert("Please select year");
+        return false;
+    }
+
+
+    // Gender
+    let gender = document.querySelector(
+        'input[name="gender"]:checked'
+    );
+
+    if (!gender) {
+        alert("Please select gender");
+        return false;
+    }
+
+
+    // Terms
+    let terms = document.getElementById("terms");
+
+    if (!terms.checked) {
+        alert("Please accept terms");
+        return false;
+    }
+
+
+    // Save email and password
+    sessionStorage.setItem("email", email);
+    sessionStorage.setItem("password", password);
+
+
+    alert("Registration Successful!");
+
+    // Go to login
+    window.location.href = "login.html";
+
+    return false;
+}
+
+
+// =========================
+// PASSWORD STRENGTH
+// =========================
+
+let passwordBox = document.getElementById("password");
+
+if (passwordBox) {
+
+    passwordBox.onkeyup = function () {
+
+        let strength = document.getElementById("strength");
+
+        if (passwordBox.value.length < 6) {
+
+            strength.innerHTML = "Weak";
+
+        } else if (passwordBox.value.length < 8) {
+
+            strength.innerHTML = "Medium";
+
+        } else {
+
+            strength.innerHTML = "Strong";
+        }
+    };
+}
+
+
+// =========================
+// LOGIN
+// =========================
+
+function validateLogin() {
+
+    let email = document.getElementById("loginEmail").value;
+    let password = document.getElementById("loginPassword").value;
+
+
+    // Get registered information
+    let registeredEmail = sessionStorage.getItem("email");
+    let registeredPassword = sessionStorage.getItem("password");
+
+
+    // Check login
+    if (
+        email == registeredEmail &&
+        password == registeredPassword
+    ) {
 
         alert("Login Successful!");
 
@@ -34,7 +178,7 @@ function validateLogin() {
 
     } else {
 
-        alert("Invalid email or password.");
+        alert("Invalid email or password");
 
     }
 
@@ -42,84 +186,47 @@ function validateLogin() {
 }
 
 
-
-
-
-
-
-
-function validateRegister() {
-
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("registerEmail").value;
-    let password = document.getElementById("registerPassword").value;
-
-    if (name === "" || email === "" || password === "") {
-        alert("Please fill in all fields.");
-        return false;
-    }
-
-    if (password.length < 6) {
-        alert("Password must be at least 6 characters.");
-        return false;
-    }
-
-    // Create student object
-    let user = {
-        name: name,
-        email: email,
-        password: password,
-        role: "student"
-    };
-
-    // Save user in browser
-    localStorage.setItem("studentUser", JSON.stringify(user));
-
-    alert("Registration Successful!");
-
-    // Open login page
-    window.location.href = "login.html";
-
-    return false;
-}
-
-
-
-
-
-
-
+// =========================
+// DATE AND TIME
+// =========================
 
 function updateDateTime() {
+
     let dateElement = document.getElementById("dateTime");
 
     if (dateElement) {
-        dateElement.innerHTML = new Date().toLocaleString();
+
+        dateElement.innerHTML =
+            new Date().toLocaleString();
     }
 }
 
 setInterval(updateDateTime, 1000);
+
 updateDateTime();
+
+
+// =========================
+// BACK TO TOP
+// =========================
 
 window.onscroll = function () {
 
     let button = document.getElementById("topBtn");
 
-    if (!button) return;
-
-    if (document.documentElement.scrollTop > 100) {
-        button.style.display = "block";
-    } else {
-        button.style.display = "none";
+    if (!button) {
+        return;
     }
 
+    if (document.documentElement.scrollTop > 100) {
+
+        button.style.display = "block";
+
+    } else {
+
+        button.style.display = "none";
+    }
 };
-
-
-
-
-
-
 
 
 function topFunction() {
@@ -128,8 +235,12 @@ function topFunction() {
         top: 0,
         behavior: "smooth"
     });
-
 }
+
+
+// =========================
+// IMAGE SLIDER
+// =========================
 
 const images = [
     "images/campus1.webp",
@@ -140,21 +251,13 @@ const images = [
 let currentImage = 0;
 
 
-
-
-
-
-
-
-
-
-
-
 function changeImage() {
 
-    const slider = document.getElementById("slider");
+    let slider = document.getElementById("slider");
 
-    if (!slider) return;
+    if (!slider) {
+        return;
+    }
 
     currentImage++;
 
@@ -168,100 +271,97 @@ function changeImage() {
 setInterval(changeImage, 3000);
 
 
-
-
-
-
-
-
-
-
+// =========================
+// SEARCH
+// =========================
 
 function searchPages() {
-    const searchText = document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
 
-    const pages = {
-        "home": "index.html",
-        "about": "about.html",
-        "discussion": "discussion.html",
-        "gallery": "gallery.html",
-        "register": "register.html",
-        "login": "login.html",
-        "dashboard": "dashboard.html",
-        "events": "events.html",
-        "profile": "profile.html",
-        "contact": "contact.html",
-        "admin": "admin.html",
-        "feedback": "feedback.html",
-        "faq": "faq.html",
-        "news": "news.html"
-    };
+    let searchInput = document.getElementById("searchInput");
 
-    if (pages[searchText]) {
-        window.location.href = pages[searchText];
-    } else if (searchText === "") {
-        alert("Please enter something to search.");
-    } else {
-        alert("Page not found. Try: About, Events, Gallery, Profile, News, etc.");
-    }
-}
-document.getElementById("searchInput").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        searchPages();
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Display Profile Information
-
-function displayProfile() {
-
-    let loggedInUser = localStorage.getItem("loggedInUser");
-
-    if (loggedInUser === null) {
-        alert("Please login first.");
-        window.location.href = "login.html";
+    if (!searchInput) {
         return;
     }
 
-    let user = JSON.parse(loggedInUser);
+    let searchText = searchInput.value.toLowerCase().trim();
 
-    let profileName = document.getElementById("profileName");
-    let profileEmail = document.getElementById("profileEmail");
 
-    if (profileName) {
-        profileName.textContent = user.name;
-    }
+    if (searchText == "home") {
+        window.location.href = "studenthub.html";
 
-    if (profileEmail) {
-        profileEmail.textContent = user.email;
+    } else if (searchText == "about") {
+        window.location.href = "about.html";
+
+    } else if (searchText == "discussion") {
+        window.location.href = "discussion.html";
+
+    } else if (searchText == "gallery") {
+        window.location.href = "gallery.html";
+
+    } else if (searchText == "register") {
+        window.location.href = "register.html";
+
+    } else if (searchText == "login") {
+        window.location.href = "login.html";
+
+    } else if (searchText == "dashboard") {
+        window.location.href = "dashboard.html";
+
+    } else if (searchText == "events") {
+        window.location.href = "events.html";
+
+    } else if (searchText == "profile") {
+        window.location.href = "profile.html";
+
+    } else if (searchText == "contact") {
+        window.location.href = "contact.html";
+
+    } else if (searchText == "feedback") {
+        window.location.href = "feedback.html";
+
+    } else if (searchText == "faq") {
+        window.location.href = "faq.html";
+
+    } else if (searchText == "news") {
+        window.location.href = "news.html";
+
+    } else if (searchText == "") {
+
+        alert("Please enter something to search.");
+
+    } else {
+
+        alert("Page not found.");
     }
 }
 
 
-// Logout User
+// Enter key for search
+
+let searchInput = document.getElementById("searchInput");
+
+if (searchInput) {
+
+    searchInput.addEventListener(
+        "keypress",
+        function (event) {
+
+            if (event.key == "Enter") {
+                searchPages();
+            }
+
+        }
+    );
+}
+
+
+// =========================
+// SIMPLE LOGOUT
+// =========================
 
 function logoutUser() {
 
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("loggedInUser");
+    sessionStorage.clear();
 
     alert("You have been logged out.");
 
@@ -269,225 +369,19 @@ function logoutUser() {
 }
 
 
+// =========================
+// SIMPLE PROFILE
+// =========================
 
+function displayProfile() {
 
+    let email = sessionStorage.getItem("email");
 
+    let profileEmail =
+        document.getElementById("profileEmail");
 
-// Display logged-in student's name on Dashboard
+    if (profileEmail && email) {
 
-function displayUserName() {
-
-    let loggedInUser = localStorage.getItem("loggedInUser");
-
-    if (loggedInUser === null) {
-        return;
+        profileEmail.innerHTML = email;
     }
-
-    let user = JSON.parse(loggedInUser);
-
-    let welcomeMessage = document.getElementById("welcomeMessage");
-
-    if (welcomeMessage) {
-        welcomeMessage.textContent =
-            "Welcome, " + user.name + "! 👋";
-    }
-}
-
-
-
-
-
-// Protect Dashboard and Profile
-
-function checkLogin() {
-
-    let isLoggedIn = localStorage.getItem("isLoggedIn");
-
-    if (isLoggedIn !== "true") {
-
-        alert("Please login first.");
-
-        window.location.href = "login.html";
-
-    }
-}
-
-
-
-// Update navigation based on login status
-
-function updateNavigation() {
-
-    let isLoggedIn = localStorage.getItem("isLoggedIn");
-
-    let navLinks = document.getElementById("navLinks");
-
-    if (!navLinks) {
-        return;
-    }
-
-    if (isLoggedIn === "true") {
-
-        let loggedInUser = localStorage.getItem("loggedInUser");
-
-        if (loggedInUser === null) {
-            return;
-        }
-
-        let user = JSON.parse(loggedInUser);
-
-        let adminLink = "";
-
-        // Show Admin only to admin
-        if (user.role === "admin") {
-            adminLink = `
-                <li><a href="admin.html">Admin</a></li>
-            `;
-        }
-
-        navLinks.innerHTML = `
-            <li><a href="studenthub.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="discussion.html">Discussion</a></li>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="admin.html">Admin</a></li>
-            <li><a href="feedback.html">Feedback</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="#" onclick="logoutUser()">Logout</a></li>
-        `;
-
-    } else {
-
-        navLinks.innerHTML = `
-            <li><a href="studenthub.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="discussion.html">Discussion</a></li>
-            <li><a href="register.html">Register</a></li>
-            <li><a href="login.html">Login</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="admin.html">Admin</a></li>
-            <li><a href="feedback.html">Feedback</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-        `;
-    }
-}
-
-
-
-
-
-// Protect Admin Page
-
-function checkAdmin() {
-
-    let isLoggedIn = localStorage.getItem("isLoggedIn");
-    let loggedInUser = localStorage.getItem("loggedInUser");
-
-    if (isLoggedIn !== "true" || loggedInUser === null) {
-
-        alert("Please login first.");
-        window.location.href = "login.html";
-        return;
-    }
-
-    let user = JSON.parse(loggedInUser);
-
-    if (user.role !== "admin") {
-
-        alert("Access denied. Admin only.");
-        window.location.href = "dashboard.html";
-        return;
-    }
-}
-
-
-// Display total registered users
-
-
-function displayUserCount() {
-
-    let storedUser = localStorage.getItem("studentUser");
-
-    let totalUsers = document.getElementById("totalUsers");
-
-    if (!totalUsers) {
-        return;
-    }
-
-    if (storedUser === null) {
-        totalUsers.textContent = "0";
-    } else {
-        totalUsers.textContent = "1";
-    }
-}
-
-
-
-
-
-
-
-
-// Display Admin Name
-
-function displayAdminName() {
-
-    let loggedInUser = localStorage.getItem("loggedInUser");
-
-    if (loggedInUser === null) {
-        return;
-    }
-
-    let user = JSON.parse(loggedInUser);
-
-    let adminWelcome = document.getElementById("adminWelcome");
-
-    if (adminWelcome) {
-        adminWelcome.textContent =
-            "Welcome, " + user.name + "! ";
-    }
-}
-
-
-
-
-
-
-
-// Manage Users
-
-function manageUsers() {
-
-    let section = document.getElementById("userManagement");
-
-    let storedUser = localStorage.getItem("studentUser");
-
-    if (storedUser === null) {
-        alert("No registered user found.");
-        return;
-    }
-
-    let user = JSON.parse(storedUser);
-
-    document.getElementById("adminUserName").textContent = user.name;
-    document.getElementById("adminUserEmail").textContent = user.email;
-    document.getElementById("adminUserRole").textContent = user.role;
-
-    section.style.display = "block";
-}
-
-function manageEvents() {
-    alert("Event Management coming soon!");
-}
-
-function manageDiscussions() {
-    alert("Discussion Management coming soon!");
-}
-
-function reviewFeedback() {
-    alert("Feedback Review coming soon!");
 }
