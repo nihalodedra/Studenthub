@@ -110,8 +110,8 @@ function validateRegister() {
 
 
     // Save email and password
-    sessionStorage.setItem("email", email);
-    sessionStorage.setItem("password", password);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
 
 
     alert("Registration Successful!");
@@ -162,8 +162,8 @@ function validateLogin() {
 
 
     // Get registered information
-    let registeredEmail = sessionStorage.getItem("email");
-    let registeredPassword = sessionStorage.getItem("password");
+  let registeredEmail = localStorage.getItem("email");
+  let registeredPassword = localStorage.getItem("password");
 
 
     // Check login
@@ -361,13 +361,12 @@ if (searchInput) {
 
 function logoutUser() {
 
-    sessionStorage.clear();
+    sessionStorage.removeItem("loggedIn");
 
     alert("You have been logged out.");
 
     window.location.href = "login.html";
 }
-
 
 // =========================
 // SIMPLE PROFILE
@@ -375,7 +374,7 @@ function logoutUser() {
 
 function displayProfile() {
 
-    let email = sessionStorage.getItem("email");
+    let email = localStorage.getItem("email");
 
     let profileEmail =
         document.getElementById("profileEmail");
