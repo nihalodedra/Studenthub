@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Student Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+     <style>
+
+                body {
+                    font-family: Arial;
+                    margin: 30px;
+                }
+
+                h1 {
+                    text-align: center;
+                }
+
+                input, select, button {
+                    padding: 8px;
+                    margin: 5px;
+                }
+
+                .event {
+                    border: 1px solid black;
+                    padding: 10px;
+                    margin: 10px;
+                }
+
+            </style>
+
+</head>
+
+<body>
+
+    <header>
+        <h1>Student Hub</h1>
+        <p>Learn • Connect • Share • Grow</p>
+    </header>
+
+    <nav>
+        <ul id="navLinks">
+            <li><a href="studenthub.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="discussion.html">Discussion</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="register.php">Register</a></li>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="#" onclick="logoutUser(); return false;">Logout</a></li>
+            <li><a href="events.php">Events</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="admin.php">Admin</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="news.html">News</a></li>
+        </ul>
+    </nav>
+
+    <h1>College Events</h1>
+
+    <!-- Search -->
+    <input type="text" id="search" placeholder="Search event">
+
+    <!-- Filter -->
+    <select id="category">
+        <option value="All">All</option>
+        <option value="Workshop">Workshop</option>
+        <option value="Seminar">Seminar</option>
+        <option value="Competition">Competition</option>
+    </select>
+
+    <!-- Sort -->
+    <button onclick="sortEvents()">Sort by Name</button>
+
+    <div id="output">Loading...</div>
+
+    <br>
+
+    <!-- Pagination -->
+    <button onclick="previousPage()">Previous</button>
+    <button onclick="nextPage()">Next</button>
+
+    <script>
+    let events = [];
+    let page = 1;
+    let perPage = 5;
+
+    // Fetch from BOTH JSON file and database
+    Promise.all([
+        fetch("js/event.json").then(response => {
+            if (!response.ok) {
+                throw new Error("Could not load event.json");
+            }
+            return response.json();
+        }),
+
+        fetch("view_events.php").then(response => {
+            if (!response.ok) {
+                throw new Error("Could not load database events");
+            }
+            return response.json();
+        })
+    ])
+    .then(([jsonEvents, databaseEvents]) => {
+
+        // Convert database fields to the student page format
+        let convertedEvents = databaseEvents.map(function(event) {
+            return {
+                name: event.title,
+                category: event.category || "Workshop",
+                date: event.event_date,
+                description: event.description,
+                location: event.location,
+                poster: event.poster
+            };
+        });
+
+        // Combine events from both sources
+        events = [...jsonEvents, ...convertedEvents];
+
+        displayEvents();
+    })
+    .catch(function(error) {
+        console.error("Error loading events:", error);
+
+        document.getElementById("output").innerHTML =
+            "<p>Error loading events. Check the browser console.</p>";
+    });
+
+
+    // Filter events
+    function getFilteredResults() {
+        let searchText =
+            document.getElementById("search").value.toLowerCase();
+
+        let category =
+            document.getElementById("category").value;
+
+        let result = events.filter(function(event) {
+            return (event.name || "")
+                .toLowerCase()
+                .includes(searchText);
+        });
+
+        if (category !== "All") {
+            result = result.filter(function(event) {
+                return event.category === category;
+            });
+        }
+
+        return result;
+    }
+
+
+    // Display events
+    function displayEvents() {
+        let result = getFilteredResults();
+
+        let totalPages = Math.ceil(result.length / perPage) || 1;
+
+        if (page > totalPages) {
+            page = totalPages;
+        }
+
+        let start = (page - 1) * perPage;
+        let pageData = result.slice(start, start + perPage);
+        let output = "";
+
+        if (pageData.length === 0) {
+            output = "<p>No events found matching your criteria.</p>";
+        } else {
+            pageData.forEach(function(event) {
+                output +=
+                    "<div class='event'>" +
+                    "<h3>" + event.name + "</h3>" +
+                    "<p>Category: " + (event.category || "Workshop") + "</p>" +
+                    "<p>Date: " + (event.date || "") + "</p>" +
+                    "<p>Description: " + (event.description || "") + "</p>" +
+                    "<p>Location: " + (event.location || "") + "</p>" +
+                    "</div>";
+            });
+        }
+
+        document.getElementById("output").innerHTML = output;
+    }
+
+
+    // Search
+    document.getElementById("search").addEventListener("input", function() {
+        page = 1;
+        displayEvents();
+    });
+
+
+    // Category filter
+    document.getElementById("category").addEventListener("change", function() {
+        page = 1;
+        displayEvents();
+    });
+
+
+    // Sort by name
+    function sortEvents() {
+        events.sort(function(a, b) {
+            return (a.name || "").localeCompare(b.name || "");
+        });
+
+        displayEvents();
+    }
+
+
+    // Next page
+    function nextPage() {
+        let totalPages =
+            Math.ceil(getFilteredResults().length / perPage) || 1;
+
+        if (page < totalPages) {
+            page++;
+            displayEvents();
+        }
+    }
+
+
+    // Previous page
+    function previousPage() {
+        if (page > 1) {
+            page--;
+            displayEvents();
+        }
+    }
+</script>
+
+
+    <a href="studenthub.html">Go Back to Home</a>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>© 2026 Student Hub | Developed by Nihal</p>
+
+        <p>
+            <a href="https://www.facebook.com/" target="_blank">
+                Facebook
+            </a>
+            |
+            <a href="https://www.instagram.com/" target="_blank">
+                Instagram
+            </a>
+            |
+            <a href="https://www.linkedin.com/" target="_blank">
+                LinkedIn
+            </a>
+        </p>
+
+    </footer>
+
+
+    <script src="js/script.js"></script>
+
+    <script>
+        updateNavigation();
+    </script>
+
+</body>
+</html>
